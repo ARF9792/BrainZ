@@ -82,7 +82,6 @@ async function handleDelete(cardId: string) {
 
   // ... (your getYouTubeVideoId, getTweetId, searchHandler, and uiChanger functions)
   function getYouTubeVideoId(url: string | undefined) {
-    if (!url) return null;
     const regExp =
       /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = url.match(regExp);
@@ -226,8 +225,8 @@ async function handleDelete(cardId: string) {
                 className="group bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-200/50 overflow-hidden hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col"
               >
                 <div className="relative w-full overflow-hidden rounded-t-2xl">
-                  {(card.url?.includes("youtube.com") ||
-                  card.url?.includes("youtu.be")) ? (
+                  {(card.url.includes("youtube.com") ||
+                  card.url.includes("youtu.be")) ? (
                     <div className="h-48 bg-gray-100">
                       <YouTubeEmbed
                         videoId={getYouTubeVideoId(card.url)}
@@ -235,8 +234,8 @@ async function handleDelete(cardId: string) {
                         height="100%"
                       />
                     </div>
-                  ) : (card.url?.includes("twitter.com") ||
-                    card.url?.includes("x.com")) ? (
+                  ) : (card.url.includes("twitter.com") ||
+                    card.url.includes("x.com")) ? (
                     <div className="h-80 overflow-y-auto bg-gray-50">
                       <TweetEmbed tweetId={getTweetId(card.url)} />
                     </div>

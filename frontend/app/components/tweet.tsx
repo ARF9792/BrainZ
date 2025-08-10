@@ -1,7 +1,7 @@
 import { Tweet } from 'react-tweet'
 
 export default function TweetEmbed({ tweetId }:{
-    tweetId:string,
+    tweetId:string
 }) {
   return (
     <div className="relative w-full h-full bg-gradient-to-br from-slate-50 to-blue-50 rounded-xl overflow-hidden">
