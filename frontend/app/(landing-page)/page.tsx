@@ -91,7 +91,7 @@ function App() {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Effortless Saving</h3>
               <p className="text-gray-600 leading-relaxed">
-                Save any URL and add your notes in seconds. We'll organize it into a neat, easy-to-find card so you can build your personal knowledge base without the clutter.
+                Save any URL and add your notes in seconds. We&apos;ll organize it into a neat, easy-to-find card so you can build your personal knowledge base without the clutter.
               </p>
             </div>
             
@@ -101,7 +101,7 @@ function App() {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">AI-Powered Search</h3>
               <p className="text-gray-600 leading-relaxed">
-                Forget trying to remember exact titles. Search your saved cards using everyday language. Just ask, "find that article about space from last week" and let BrainZ do the rest.
+                Forget trying to remember exact titles. Search your saved cards using everyday language. Just ask, &quot;find that article about space from last week&quot; and let BrainZ do the rest.
               </p>
             </div>
             

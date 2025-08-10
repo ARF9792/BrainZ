@@ -3,65 +3,71 @@
 
 import { useUser } from '@clerk/nextjs';
 import { useRef, useState } from 'react';
-export default function Model_component({model,setmodel}:{
-  model:boolean,
-  setmodel:any
+
+// Define a more specific type for setmodel to avoid 'any'
+type SetModelType = (model: boolean) => void;
+
+export default function Model_component({ model, setmodel }: {
+  model: boolean,
+  setmodel: SetModelType
 }) {
   const { user, isLoaded } = useUser();
-  const [loading,setloading]=useState(false)
-
-  if (!isLoaded) return <div>Loading...</div>;
-  //const userid=user?.id;
+  const [loading, setloading] = useState(false);
+  
+  // Moved hooks to the top level
   const titleref = useRef<HTMLInputElement>(null);
   const urlref = useRef<HTMLInputElement>(null);
   const noteref = useRef<HTMLInputElement>(null);
 
-    async function db_adder() {
-        setloading(true)
-        const title = titleref.current?.value;
-        const url = urlref.current?.value;
-        const note = noteref.current?.value;
-        const userid = user?.id;
-      
-        if (!title || !note || !userid||!url) {
-          alert("Please fill all required fields.");
-          setloading(false);
-          return;
-        }
-      
-        try {
-          const response = await fetch("http://localhost:4000/create-card", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              card: {
-                title,
-                url,
-                note,
-              },
-              id: userid, // extra field if needed
-            }),
-          });
-      
-          const message = await response.text();
-          setloading(false)
-          //alert(message);
-          if (response.ok) {
-            setmodel(false);
-          }
-        } catch (error) {
-          console.error("Error adding card:", error);
-          alert("Failed to add card.");
-          setloading(false);
-        }
-      }      
-  function model_remover(){
+  if (!isLoaded) return <div>Loading...</div>;
+
+  async function db_adder() {
+    setloading(true)
+    const title = titleref.current?.value;
+    const url = urlref.current?.value;
+    const note = noteref.current?.value;
+    const userid = user?.id;
+  
+    if (!title || !note || !userid || !url) {
+      alert("Please fill all required fields.");
+      setloading(false);
+      return;
+    }
+  
+    try {
+      const response = await fetch("http://localhost:4000/create-card", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          card: {
+            title,
+            url,
+            note,
+          },
+          id: userid,
+        }),
+      });
+  
+      // const message = await response.text(); // This variable was unused
+      await response.text();
+      setloading(false)
+      if (response.ok) {
+        setmodel(false);
+      }
+    } catch (error) {
+      console.error("Error adding card:", error);
+      alert("Failed to add card.");
+      setloading(false);
+    }
+  }
+
+  function model_remover() {
     setmodel(false)
   }
-  if(!loading){
-
+  
+  if (!loading) {
     return (
       <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-auto transform transition-all">
@@ -84,7 +90,7 @@ export default function Model_component({model,setmodel}:{
               </svg>
             </button>
           </div>
-          
+
           {/* Form */}
           <div className="p-6 space-y-6">
             <div>
@@ -99,7 +105,7 @@ export default function Model_component({model,setmodel}:{
                 className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200 placeholder-gray-400"
               />
             </div>
-            
+
             <div>
               <label htmlFor="url" className="block text-sm font-medium text-gray-700 mb-2">
                 URL <span className="text-red-500">*</span>
@@ -112,7 +118,7 @@ export default function Model_component({model,setmodel}:{
                 className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200 placeholder-gray-400"
               />
             </div>
-            
+
             <div>
               <label htmlFor="note" className="block text-sm font-medium text-gray-700 mb-2">
                 Notes <span className="text-red-500">*</span>
@@ -126,7 +132,7 @@ export default function Model_component({model,setmodel}:{
               />
             </div>
           </div>
-          
+
           {/* Footer */}
           <div className="flex items-center justify-end space-x-3 p-6 border-t border-gray-200 bg-gray-50 rounded-b-2xl">
             <button
@@ -150,9 +156,8 @@ export default function Model_component({model,setmodel}:{
         </div>
       </div>
     );
-  }
-  else{
-    return(
+  } else {
+    return (
       <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-auto p-8 text-center">
           <div className="flex items-center justify-center mb-4">
