@@ -8,7 +8,7 @@ import YouTubeEmbed from "../components/video";
 import TweetEmbed from "../components/tweet";
 import URLPreview from "../components/urlpreview";
 import ChatInterface from "../components/ai_interface";
-
+import Skeleton from "../components/skeleton_loader";
 // --- CHANGE 1: Add _id to the Card interface ---
 interface Card {
   _id: string; 
@@ -31,55 +31,71 @@ export default function CardsView() {
   const userId = user?.id;
 
   const [cards, setCards] = useState<Card[]>([]);
+  const [initialLoading, setInitialLoading] = useState(true); 
+  const [initial,setinitial]=useState(0);
 
   // Fetching cards
   useEffect(() => {
     if (!isLoaded || !userId) return;
 
-    fetch(`https://brainz-backend-mtvb.onrender.com/display-cards?id=${userId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setCards(data))
-      .catch((error) => {
-        console.error("Error finding cards:", error);
-      });
+    const fetchCards = async () => {
+      if(initial==0){
+        setInitialLoading(true);
+      }
+      try {
+        while (true) {
+          try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/display-cards?id=${userId}`, {
+              method: "GET",
+              headers: { "Content-Type": "application/json" },
+            });
+  
+            if (res.ok) {
+              const data: Card[] = await res.json();
+              setCards(data); // even if empty
+              break; // stop retrying — backend is awake
+            }
+          } catch (err) {
+            console.error("Fetch failed, retrying...", err);
+          }
+  
+          // wait before retrying
+          await new Promise((r) => setTimeout(r, 1500));
+        }
+      } finally {
+        if(initial==0){
+          setInitialLoading(false);
+          setinitial(1);
+        }
+      }
+    };
+  
+    fetchCards();
   }, [isLoaded, userId, model]);
 
   // --- CHANGE 2: Add the handleDelete function ---
- // Corrected frontend function
-async function handleDelete(cardId: string) {
-  // if (!window.confirm("Are you sure you want to delete this card?")) {
-  //   return;
-  // }
+  async function handleDelete(cardId: string) {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/delete-card/${cardId}`, {
+        method: "DELETE",
+      });
 
-  try {
-    // FIX: Use the DELETE method and put the ID in the URL path
-    const response = await fetch(`https://brainz-backend-mtvb.onrender.com/delete-card/${cardId}`, {
-      method: "DELETE",
-    });
+      if (!response.ok) {
+        throw new Error("Failed to delete the card.");
+      }
 
-    if (!response.ok) {
-      throw new Error("Failed to delete the card.");
+      setCards(cards.filter(card => card._id !== cardId));
+      setMatch(matched.filter(card => card._id !== cardId));
+    } catch (error) {
+      console.error(error);
+      alert("Error deleting card.");
     }
-
-    setCards(cards.filter(card => card._id !== cardId));
-    setMatch(matched.filter(card => card._id !== cardId));
-
-  } catch (error) {
-    console.error(error);
-    alert("Error deleting card.");
   }
-}
 
   const renderModel = () => {
     setModel(true);
   };
 
-  // ... (your getYouTubeVideoId, getTweetId, searchHandler, and uiChanger functions)
   function getYouTubeVideoId(url: string | undefined) {
     const regExp =
       /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
@@ -99,24 +115,20 @@ async function handleDelete(cardId: string) {
 
     const query = searchRef.current?.value;
     try {
-      const response = await fetch("https://brainz-backend-mtvb.onrender.com/query-embedding", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/query-embedding`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          query: query, // extra field if needed
-        }),
+        body: JSON.stringify({ query }),
       });
 
-      const message = await response.json(); // This will be the query embedding
+      const message = await response.json();
 
-      const searchResponse = await fetch("https://brainz-backend-mtvb.onrender.com/search-cards", {
+      const searchResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/search-cards`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ queryEmbedding: message,
-          userId:userId,
-         }),
+        body: JSON.stringify({ queryEmbedding: message, userId }),
       });
 
       const matchedCards = await searchResponse.json();
@@ -132,6 +144,14 @@ async function handleDelete(cardId: string) {
     setActiveChatCard(null); 
   }
 
+  // NEW: Show loader while waiting for first fetch
+  if (initialLoading) {
+    return (
+      <Skeleton />
+    );
+  }
+
+  // rest of your original rendering logic...
 
   if (!ui2) {
     return (
