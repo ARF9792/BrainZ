@@ -59,10 +59,10 @@ Before you can install the project's dependencies with `npm`, you must have **No
 3.  **Install Dependencies:** Open two separate terminal windows or tabs, one for the frontend and one for the backend.
 
     - In the **backend** terminal, navigate to the `backend` directory and run:
-        ```npm install```
+        ```npm install
+        ```
        
-    - In the **frontend** terminal, navigate to the `frontend` directory and run:
-        ```npm install```
+    - In the **frontend** terminal, navigate to the `frontend` directory and run:```npm install```
         
 
 4.  **Run the Application:**
