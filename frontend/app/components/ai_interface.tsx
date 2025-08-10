@@ -1,10 +1,24 @@
 // Corrected ChatInterface.js component
+'use client'; // Add this if it's not already there for client-side hooks
 
 import { useState, useEffect, useRef } from "react";
 
-export default function ChatInterface({ cardContext, onClose }) {
-  // Change 1: Initialize with 'model' role and a welcoming message.
-  // The backend will handle the true "system" prompt.
+// Define the shape of a Card object, based on your `home/page.tsx`
+interface Card {
+  _id: string;
+  title: string;
+  url: string;
+  note: string;
+}
+
+// Define the props for the component
+interface ChatInterfaceProps {
+  cardContext: Card;
+  onClose: () => void; // A function that takes no arguments and returns nothing
+}
+
+export default function ChatInterface({ cardContext, onClose }: ChatInterfaceProps) {
+  // ... rest of your component logic remains the same
   const [messages, setMessages] = useState([
     { role: "model", content: `I'm ready to chat about: ${cardContext.title}` },
   ]);
@@ -41,7 +55,6 @@ export default function ChatInterface({ cardContext, onClose }) {
       
       const data = await res.json();
 
-      // Change 2: Use 'model' as the role for the AI's reply.
       const aiMessage = { role: "model", content: data.reply };
       setMessages([...newMessages, aiMessage]);
 
@@ -89,7 +102,6 @@ export default function ChatInterface({ cardContext, onClose }) {
             >
               <div
                 className={`p-4 rounded-2xl max-w-sm lg:max-w-md ${
-                  // Change 3: Check for 'model' role for styling
                   msg.role === "user"
                     ? "bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-md"
                     : "bg-white text-gray-800 shadow-sm border border-gray-200"
@@ -113,7 +125,6 @@ export default function ChatInterface({ cardContext, onClose }) {
               </div>
             </div>
           )}
-          {/* Add a reference div to the end for auto-scrolling */}
           <div ref={chatEndRef} />
         </div>
 
