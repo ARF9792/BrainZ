@@ -32,8 +32,8 @@ BrainZ solves this by combining simplicity with powerful AI features, delivering
 -   **Frontend:** Next.js, Tailwind CSS
 -   **Backend:** Express.js, Next.js (Gemini-Integration)
 -   **AI/ML:** Hugging Face Sentence Transformers for vector embeddings and Gemini-1.5-flash for AI chat.
--   **Database:**Mongodb
--   **Authentication:**Clerk
+-   **Database:** Mongodb
+-   **Authentication:** Clerk
 -   **Deployment:** This project is deployed with the frontend on Vercel and the backend on Render
 ---
 
