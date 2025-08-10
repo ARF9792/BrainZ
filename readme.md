@@ -50,33 +50,26 @@ Before you can install the project's dependencies with `npm`, you must have **No
 ### Installation
 
 1.  **Clone the repository:**
-    ```
-    git clone [https://github.com/yourusername/brainz.git](https://github.com/yourusername/brainz.git)
+    ```git clone https://github.com/yourusername/brainz.git
     cd brainz
     ```
 
-2.  **Set up Environment Variables:**
-    In both the `frontend` and `backend` directories, create a `.env` file by copying the contents of the `.env.example` file. Fill in the necessary environment variables (like API keys and database URIs).
+2.  **Set up Environment Variables:** In both the `frontend` and `backend` directories, create a `.env` file by copying the contents of the `.env.example` file. Fill in the necessary environment variables (like API keys and database URIs).
 
-3.  **Install Dependencies:**
-    Open two separate terminal windows or tabs, one for the frontend and one for the backend.
+3.  **Install Dependencies:** Open two separate terminal windows or tabs, one for the frontend and one for the backend.
 
     - In the **backend** terminal, navigate to the `backend` directory and run:
-        ```
-        npm install
-        ```
+        ```npm install```
+       
     - In the **frontend** terminal, navigate to the `frontend` directory and run:
-        ```
-        npm install
-        ```
+        ```npm install```
+        
 
 4.  **Run the Application:**
 
     - To start the **backend** server, run the following command in the backend terminal:
-        ```
-        node index.js
-        ```
+        ```node index.js```
+        
     - To start the **frontend** development server, run the following command in the frontend terminal:
-        ```
-        npm run dev
-        ```
+        ```npm run dev```
+       
