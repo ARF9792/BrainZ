@@ -52,7 +52,8 @@ export default function CardsView() {
   
             if (res.ok) {
               const data: Card[] = await res.json();
-              setCards(data); 
+              setCards(data);
+              break;
             }
           } catch (err) {
             console.error("Fetch failed, retrying...", err);
