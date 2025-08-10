@@ -1,7 +1,7 @@
 import React from 'react';
 import { Brain, Sparkles, Zap, ArrowRight, BookOpen, Target, Users } from 'lucide-react';
-import { GetStartedButton } from './components/GetStartedButton';
-import { SignInButton } from './components/SignInButton';
+import { GetStartedButton } from '../components/GetStartedButton';
+import { SignInButton } from '../components/SignInButton';
 
 function App() {
   return (
