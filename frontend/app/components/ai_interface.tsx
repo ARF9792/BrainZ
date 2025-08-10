@@ -1,9 +1,10 @@
-// Corrected ChatInterface.js component
-'use client'; // Add this if it's not already there for client-side hooks
+// frontend/app/components/ai_interface.tsx
+
+'use client';
 
 import { useState, useEffect, useRef } from "react";
 
-// Define the shape of a Card object, based on your `home/page.tsx`
+// Define the shape of a Card object to ensure type safety
 interface Card {
   _id: string;
   title: string;
@@ -11,20 +12,21 @@ interface Card {
   note: string;
 }
 
-// Define the props for the component
+// Define the types for the component's props
 interface ChatInterfaceProps {
   cardContext: Card;
   onClose: () => void; // A function that takes no arguments and returns nothing
 }
 
 export default function ChatInterface({ cardContext, onClose }: ChatInterfaceProps) {
-  // ... rest of your component logic remains the same
   const [messages, setMessages] = useState([
     { role: "model", content: `I'm ready to chat about: ${cardContext.title}` },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const chatEndRef = useRef(null);
+
+  // FIX: Specify that this ref will hold an HTMLDivElement
+  const chatEndRef = useRef<HTMLDivElement>(null);
 
   // Effect to scroll to the latest message
   useEffect(() => {
@@ -42,7 +44,6 @@ export default function ChatInterface({ cardContext, onClose }: ChatInterfacePro
     setLoading(true);
 
     try {
-      // Ensure the port matches your backend server (e.g., 4000)
       const res = await fetch("/api/ai", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -54,7 +55,6 @@ export default function ChatInterface({ cardContext, onClose }: ChatInterfacePro
       }
       
       const data = await res.json();
-
       const aiMessage = { role: "model", content: data.reply };
       setMessages([...newMessages, aiMessage]);
 
@@ -125,6 +125,7 @@ export default function ChatInterface({ cardContext, onClose }: ChatInterfacePro
               </div>
             </div>
           )}
+          {/* Attach the ref to this div for auto-scrolling */}
           <div ref={chatEndRef} />
         </div>
 
