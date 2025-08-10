@@ -36,7 +36,7 @@ export default function CardsView() {
   useEffect(() => {
     if (!isLoaded || !userId) return;
 
-    fetch(`http://localhost:4000/display-cards?id=${userId}`, {
+    fetch(`https://brainz-backend-01d4.onrender.com/display-cards?id=${userId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -59,7 +59,7 @@ async function handleDelete(cardId: string) {
 
   try {
     // FIX: Use the DELETE method and put the ID in the URL path
-    const response = await fetch(`http://localhost:4000/delete-card/${cardId}`, {
+    const response = await fetch(`https://brainz-backend-01d4.onrender.com/delete-card/${cardId}`, {
       method: "DELETE",
     });
 
@@ -100,7 +100,7 @@ async function handleDelete(cardId: string) {
 
     const query = searchRef.current?.value;
     try {
-      const response = await fetch("http://localhost:4000/query-embedding", {
+      const response = await fetch("https://brainz-backend-01d4.onrender.com/query-embedding", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -112,7 +112,7 @@ async function handleDelete(cardId: string) {
 
       const message = await response.json(); // This will be the query embedding
 
-      const searchResponse = await fetch("http://localhost:4000/search-cards", {
+      const searchResponse = await fetch("https://brainz-backend-01d4.onrender.com/search-cards", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ queryEmbedding: message,

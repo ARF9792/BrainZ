@@ -36,7 +36,7 @@ export default function Model_component({ model, setmodel }: {
     }
   
     try {
-      const response = await fetch("http://localhost:4000/create-card", {
+      const response = await fetch("https://brainz-backend-01d4.onrender.com/create-card", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
