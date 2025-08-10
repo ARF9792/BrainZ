@@ -5,7 +5,7 @@ import { ArrowRight } from 'lucide-react';
 
 export const GetStartedButton: React.FC = () => {
   const handleClick = () => {
-    window.location.href = '/cards';
+    window.location.href = '/home';
   };
 
   return (

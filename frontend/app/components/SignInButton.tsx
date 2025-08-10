@@ -4,7 +4,7 @@ import React from 'react';
 
 export const SignInButton: React.FC = () => {
   const handleClick = () => {
-    window.location.href = '/cards';
+    window.location.href = '/home';
   };
 
   return (
