@@ -16,7 +16,8 @@ app.post("/create-card",create);
 app.post("/query-embedding",queryembed)
 app.post("/search-cards",matchembeddings)
 app.delete("/delete-card/:id",deletecard)
-mongoose.connect("mongodb://localhost:3001/Cardz").then(()=>{
+const dbURI = process.env.MONGO_URI;
+mongoose.connect(dbURI).then(()=>{
     console.log("Db connected successfully !")
     app.listen(4000,()=>{
         console.log("Server listening on port:4000")
