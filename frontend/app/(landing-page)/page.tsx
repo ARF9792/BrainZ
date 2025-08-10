@@ -6,7 +6,7 @@ import { SignInButton } from '../components/SignInButton';
 function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      {/* Navigation */}
+      
       <nav className="relative z-10 px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-2 group">
@@ -25,11 +25,11 @@ function App() {
         </div>
       </nav>
 
-      {/* Hero Section */}
+     
       <section className="relative px-6 py-20">
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
-            {/* Floating Elements */}
+            
             <div className="absolute top-20 left-10 animate-bounce delay-100">
               <Sparkles className="w-6 h-6 text-yellow-400" />
             </div>
@@ -40,7 +40,7 @@ function App() {
               <BookOpen className="w-5 h-5 text-blue-500" />
             </div>
 
-            {/* Main Content */}
+            
             <div className="relative z-10">
               <div className="inline-flex items-center px-4 py-2 bg-blue-100 rounded-full text-blue-700 text-sm font-medium mb-8 animate-fade-in">
                 <Sparkles className="w-4 h-4 mr-2" />
@@ -65,14 +65,14 @@ function App() {
           </div>
         </div>
 
-        {/* Background Decoration */}
+        
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full opacity-20 animate-pulse"></div>
           <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-purple-200 to-pink-200 rounded-full opacity-20 animate-pulse delay-1000"></div>
         </div>
       </section>
 
-      {/* Features Section */}
+      
       <section id="features" className="px-6 py-20 bg-white/50 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
@@ -118,7 +118,7 @@ function App() {
         </div>
       </section>
 
-      {/* Footer */}
+      
       <footer className="px-6 py-12 bg-gray-50 border-t border-gray-200">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between">

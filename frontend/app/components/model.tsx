@@ -17,7 +17,7 @@ export default function Model_component({ model, setmodel }: {
   const titleref = useRef<HTMLInputElement>(null);
   const urlref = useRef<HTMLInputElement>(null);
   
-  // FIX: Changed the ref type from HTMLInputElement to HTMLTextAreaElement
+  
   const noteref = useRef<HTMLTextAreaElement>(null);
 
   if (!isLoaded) return <div>Loading...</div>;
@@ -71,7 +71,7 @@ export default function Model_component({ model, setmodel }: {
     return (
       <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-auto transform transition-all">
-          {/* Header */}
+          
           <div className="flex items-center justify-between p-6 border-b border-gray-200">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center">
@@ -91,7 +91,7 @@ export default function Model_component({ model, setmodel }: {
             </button>
           </div>
           
-          {/* Form */}
+          
           <div className="p-6 space-y-6">
             <div>
               <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
@@ -133,7 +133,7 @@ export default function Model_component({ model, setmodel }: {
             </div>
           </div>
           
-          {/* Footer */}
+          
           <div className="flex items-center justify-end space-x-3 p-6 border-t border-gray-200 bg-gray-50 rounded-b-2xl">
             <button
               onClick={model_remover}

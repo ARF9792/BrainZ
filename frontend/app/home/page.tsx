@@ -9,7 +9,7 @@ import TweetEmbed from "../components/tweet";
 import URLPreview from "../components/urlpreview";
 import ChatInterface from "../components/ai_interface";
 import Skeleton from "../components/skeleton_loader";
-// --- CHANGE 1: Add _id to the Card interface ---
+
 interface Card {
   _id: string; 
   title: string;
@@ -52,14 +52,13 @@ export default function CardsView() {
   
             if (res.ok) {
               const data: Card[] = await res.json();
-              setCards(data); // even if empty
-              break; // stop retrying — backend is awake
+              setCards(data); 
             }
           } catch (err) {
             console.error("Fetch failed, retrying...", err);
           }
   
-          // wait before retrying
+       
           await new Promise((r) => setTimeout(r, 1500));
         }
       } finally {
@@ -73,7 +72,7 @@ export default function CardsView() {
     fetchCards();
   }, [isLoaded, userId, model]);
 
-  // --- CHANGE 2: Add the handleDelete function ---
+  
   async function handleDelete(cardId: string) {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/delete-card/${cardId}`, {
@@ -144,24 +143,24 @@ export default function CardsView() {
     setActiveChatCard(null); 
   }
 
-  // NEW: Show loader while waiting for first fetch
+ 
   if (initialLoading) {
     return (
       <Skeleton />
     );
   }
 
-  // rest of your original rendering logic...
+  
 
   if (!ui2) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-        {/* Integrated Rounded Transparent Topbar */}
+        
         <div className="sticky top-0 z-40 p-4">
           <div className="max-w-6xl mx-auto">
             <div className="bg-white/80 backdrop-blur-md rounded-3xl border border-white/20 shadow-xl p-6">
               <div className="flex flex-col lg:flex-row items-center gap-6">
-                {/* Logo and Title Section */}
+                
                 <div className="flex items-center space-x-4 flex-shrink-0">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg">
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -174,7 +173,7 @@ export default function CardsView() {
                   </div>
                 </div>
                 
-                {/* Search Section - Now Integrated */}
+               
                 <div className="flex-1 w-full max-w-2xl">
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -201,13 +200,13 @@ export default function CardsView() {
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
-                        {/* <span className="ml-2 hidden sm:block">Search</span> */}
+                        
                       </button>
                     </div>
                   </div>
                 </div>
                 
-                {/* Action Buttons */}
+                
                 <div className="flex items-center space-x-3 flex-shrink-0">
                   <button
                     onClick={renderModel}
@@ -234,13 +233,13 @@ export default function CardsView() {
           </div>
         </div>
 
-        {/* Main Content */}
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 mt-10">
-          {/* Cards Grid */}
+          
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {cards.map((card, index) => (
               <div
-                key={card._id} // Use the unique _id as the key
+                key={card._id} 
                 className="group bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-200/50 overflow-hidden hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col"
               >
                 <div className="relative w-full overflow-hidden rounded-t-2xl">
@@ -319,7 +318,7 @@ export default function CardsView() {
           )}
         </div>
         
-        {/* Modals */}
+       
         {model && <Model_component model={model} setmodel={setModel} />}
         {activeChatCard && (
           <ChatInterface
@@ -370,7 +369,7 @@ export default function CardsView() {
     } else {
       return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-          {/* Search Results Topbar */}
+         
           <div className="sticky top-0 z-40 p-4">
             <div className="max-w-6xl mx-auto">
               <div className="bg-white/80 backdrop-blur-md rounded-3xl border border-white/20 shadow-xl p-6">
@@ -398,7 +397,7 @@ export default function CardsView() {
             </div>
           </div>
 
-          {/* Search Results Grid */}
+          
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {matched.map((card) => (

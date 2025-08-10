@@ -15,7 +15,7 @@ interface Card {
 // Define the types for the component's props
 interface ChatInterfaceProps {
   cardContext: Card;
-  onClose: () => void; // A function that takes no arguments and returns nothing
+  onClose: () => void; 
 }
 
 export default function ChatInterface({ cardContext, onClose }: ChatInterfaceProps) {
@@ -25,10 +25,10 @@ export default function ChatInterface({ cardContext, onClose }: ChatInterfacePro
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // FIX: Specify that this ref will hold an HTMLDivElement
+  
   const chatEndRef = useRef<HTMLDivElement>(null);
 
-  // Effect to scroll to the latest message
+  
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -125,7 +125,7 @@ export default function ChatInterface({ cardContext, onClose }: ChatInterfacePro
               </div>
             </div>
           )}
-          {/* Attach the ref to this div for auto-scrolling */}
+          
           <div ref={chatEndRef} />
         </div>
 
