@@ -46,7 +46,6 @@ export default function CardsView() {
       .then((data) => setCards(data))
       .catch((error) => {
         console.error("Error finding cards:", error);
-        alert("Failed to find cards.");
       });
   }, [isLoaded, userId, model]);
 
