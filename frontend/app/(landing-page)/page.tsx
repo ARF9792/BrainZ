@@ -145,8 +145,8 @@ function App() {
                       AI-Powered Search
                     </h3>
                     <p className="text-gray-600 leading-relaxed text-base lg:text-lg group-hover:text-gray-700 transition-colors duration-300 flex-1">
-                      Forget trying to remember exact titles. Search your saved cards using everyday language. Just ask, "find that article about space from last week" and let BrainZ do the rest.
-                    </p>
+  Forget trying to remember exact titles. Search your saved cards using everyday language. Just ask, &quot;find that article about space from last week&quot; and let BrainZ do the rest.
+</p>
                   </div>
                   
                   {/* Bottom accent line */}
