@@ -12,7 +12,7 @@ BrainZ solves this by combining simplicity with powerful AI features, delivering
 
 ## Demo
 
-🔗 **Live Demo:** [https://brainz-wine.vercel.app/](https://brainz-wine.vercel.app/)
+🔗 **Live Demo:** [https://brainzz.vercel.app/](https://brainzz.vercel.app/)
 
 ---
 
