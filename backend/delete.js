@@ -1,4 +1,3 @@
-// Corrected backend function
 import { Card } from "./db-models/carddb.js";
 
 export default async function deletecard(req, res) {
